@@ -38,6 +38,7 @@ public class Target : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
+        Debug.Log("Hi");
         if (!gameObject.CompareTag("Bad"))
         {
             gameManager.GameOver();
