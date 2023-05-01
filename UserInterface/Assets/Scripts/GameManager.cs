@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     public Button restartButton;
     public GameObject titleScreen;
     public int lives = 3;
+    public GameObject pauseScreen;
+    bool paused;
     void Start()
     {
         
@@ -30,7 +32,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(SpawnTarget());
         spawnRate /= difficulty;
         UpdateScore(0);
-        UpdateLives();
+        UpdateLives(0);
         titleScreen.gameObject.SetActive(false);
     }
 
@@ -52,9 +54,9 @@ public class GameManager : MonoBehaviour
         score += scoreToAdd;
         scoreText.text = "Score: " + score;
     }
-    public void UpdateLives()
+    public void UpdateLives(int subtractFromLives)
     {
-        Debug.Log("y");
+        lives -= subtractFromLives;
         livesText.text = "Lives: " + lives;
     }
     public void GameOver()
@@ -68,8 +70,27 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    void ChangePaused()
+    {
+        if (!paused)
+        {
+            paused = true;
+            pauseScreen.SetActive(true);
+            Time.timeScale = 0;
+        }
+        else
+        {
+            paused = false;
+            pauseScreen.SetActive(false);
+            Time.timeScale = 1;
+        }
+    }
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            ChangePaused();
+        }
     }
 }

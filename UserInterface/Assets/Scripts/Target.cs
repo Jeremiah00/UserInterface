@@ -41,7 +41,7 @@ public class Target : MonoBehaviour
         Debug.Log("Hi");
         if (!gameObject.CompareTag("Bad"))
         {
-            gameManager.lives -= 1;
+            gameManager.UpdateLives(1);
             if (gameManager.lives == 0)
             {
                 gameManager.GameOver();
